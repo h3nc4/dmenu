@@ -1,0 +1,13 @@
+#!/bin/env sh
+set -e
+PREFIX=/usr/local
+MANPREFIX=${PREFIX}/share/man
+install -Dm755 dmenu ${PREFIX}/bin/dmenu
+install -Dm755 dmenu_path ${PREFIX}/bin/dmenu_path
+install -Dm755 dmenu_run ${PREFIX}/bin/dmenu_run
+install -Dm755 stest ${PREFIX}/bin/stest
+install -Dm644 dmenu.1 ${MANPREFIX}/man1/dmenu.1
+sed -i "s/VERSION/${VERSION}/g" ${MANPREFIX}/man1/dmenu.1
+install -Dm644 stest.1 ${MANPREFIX}/man1/stest.1
+sed -i "s/VERSION/${VERSION}/g" ${MANPREFIX}/man1/stest.1
+echo "dmenu installed."
