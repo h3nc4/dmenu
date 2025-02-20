@@ -7,7 +7,6 @@ SRC = drw.c dmenu.c stest.c util.c
 OBJ = $(SRC:.c=.o)
 
 all: dmenu stest
-	cp dmenu dmenu_path dmenu_run dmenu.1 stest stest.1 build
 
 .c.o:
 	$(CC) -c $(CFLAGS) $<
@@ -35,6 +34,21 @@ dist: clean
 	gzip dmenu-$(VERSION).tar
 	rm -rf dmenu-$(VERSION)
 
+dist.built: all
+	mkdir -p dmenu-$(VERSION)
+	cp dmenu dmenu.1 dmenu_path dmenu_run stest.1 dmenu-$(VERSION)
+	printf '#!/bin/sh\nset -e\n' >dmenu-$(VERSION)/install
+	echo 'install -Dm755 dmenu ${PREFIX}/bin/dmenu' >>dmenu-$(VERSION)/install
+	echo 'install -Dm755 dmenu_path ${PREFIX}/bin/dmenu_path' >>dmenu-$(VERSION)/install
+	echo 'install -Dm755 dmenu_run ${PREFIX}/bin/dmenu_run' >>dmenu-$(VERSION)/install
+	echo 'install -Dm644 dmenu.1 ${MANPREFIX}/man1/dmenu.1' >>dmenu-$(VERSION)/install
+	echo 'sed -i "s/VERSION/$(VERSION)/g" ${MANPREFIX}/man1/dmenu.1' >>dmenu-$(VERSION)/install
+	echo 'install -Dm644 stest.1 ${MANPREFIX}/man1/stest.1' >>dmenu-$(VERSION)/install
+	echo 'sed -i "s/VERSION/$(VERSION)/g" ${MANPREFIX}/man1/stest.1' >>dmenu-$(VERSION)/install
+	chmod +x dmenu-$(VERSION)/install
+	tar czf dmenu.tgz dmenu-$(VERSION)
+	rm -rf dmenu-${VERSION}
+
 install: all
 	install -Dm755 dmenu $(DESTDIR)$(PREFIX)/bin/dmenu
 	install -Dm755 dmenu_path $(DESTDIR)$(PREFIX)/bin/dmenu_path
@@ -53,4 +67,4 @@ uninstall:
 		$(DESTDIR)$(MANPREFIX)/man1/dmenu.1\
 		$(DESTDIR)$(MANPREFIX)/man1/stest.1
 
-.PHONY: all clean dist install uninstall
+.PHONY: all clean dist install uninstall dist.built
