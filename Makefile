@@ -36,11 +36,12 @@ dist: clean
 
 dist.built: all
 	mkdir -p dmenu-$(VERSION)
-	cp dmenu dmenu.1 dmenu_path dmenu_run stest.1 dmenu-$(VERSION)
+	cp dmenu dmenu.1 dmenu_path dmenu_run stest stest.1 dmenu-$(VERSION)
 	printf '#!/bin/sh\nset -e\n' >dmenu-$(VERSION)/install
 	echo 'install -Dm755 dmenu ${PREFIX}/bin/dmenu' >>dmenu-$(VERSION)/install
 	echo 'install -Dm755 dmenu_path ${PREFIX}/bin/dmenu_path' >>dmenu-$(VERSION)/install
 	echo 'install -Dm755 dmenu_run ${PREFIX}/bin/dmenu_run' >>dmenu-$(VERSION)/install
+	echo 'install -Dm755 stest ${PREFIX}/bin/stest' >>dmenu-$(VERSION)/install
 	echo 'install -Dm644 dmenu.1 ${MANPREFIX}/man1/dmenu.1' >>dmenu-$(VERSION)/install
 	echo 'sed -i "s/VERSION/$(VERSION)/g" ${MANPREFIX}/man1/dmenu.1' >>dmenu-$(VERSION)/install
 	echo 'install -Dm644 stest.1 ${MANPREFIX}/man1/stest.1' >>dmenu-$(VERSION)/install
