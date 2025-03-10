@@ -47,7 +47,7 @@ dist.built: all
 	echo 'install -Dm644 stest.1 ${MANPREFIX}/man1/stest.1' >>dmenu-$(VERSION)/install
 	echo 'sed -i "s/VERSION/$(VERSION)/g" ${MANPREFIX}/man1/stest.1' >>dmenu-$(VERSION)/install
 	chmod +x dmenu-$(VERSION)/install
-	tar czf dmenu.tgz dmenu-$(VERSION)
+	tar czf dmenu.tar.gz dmenu-$(VERSION)
 	rm -rf dmenu-${VERSION}
 
 install: all
