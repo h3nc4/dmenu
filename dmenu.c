@@ -171,7 +171,7 @@ drawmenu(void)
 		/* draw vertical list */
 		for (item = curr; item != next; item = item->right)
 			drawitem(item, x, y += bh, mw - x);
-	} else if (matches) {
+	} else if (matches && curr) {
 		/* draw horizontal list */
 		x += inputw;
 		w = TEXTW("<");
