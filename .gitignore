@@ -3,3 +3,4 @@ dmenu
 stest
 dmenu-*/
 *.tar.gz
+*.deb
