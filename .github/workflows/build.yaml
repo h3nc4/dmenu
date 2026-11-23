@@ -49,6 +49,7 @@ jobs:
           apt-get update
           apt-get install -y --no-install-recommends ca-certificates git make gcc libc6-dev \
             libx11-dev libxft-dev libxinerama-dev dpkg-dev
+          git config --system --add safe.directory '*'
       - name: Run actions/checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Build the package
